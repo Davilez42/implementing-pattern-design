@@ -1,12 +1,16 @@
-const mongoose = require('mongoose')
-const uri  =  'mongodb+srv://davz42:1kfmibro86662@cluster0.klylabv.mongodb.net/sample_mflix'
-mongoose.connect(uri,{useNewUrlParser:true,useUnifiedTopology:true})
-.then(()=>{
+const mongoose = require("mongoose");
+require("dotenv").config();
+mongoose
+  .connect(process.env.URI_MONGO_CONNECTION, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
     console.log("Connection Established");
-    mongoose.connection.on("open",_=>{
-        console.log("Open new connection");
-    })
-    mongoose.connection.on('error',()=>console.log('error'))
-})
-.catch(err=>console.log("Connection Error"))
-module.exports  = mongoose
+    mongoose.connection.on("open", (_) => {
+      console.log("Open new connection");
+    });
+    mongoose.connection.on("error", () => console.log("error"));
+  })
+  .catch((err) => console.log("Connection Error"));
+module.exports = mongoose;
