@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
+
 require("dotenv").config();
+
 mongoose
   .connect(process.env.URI_MONGO_CONNECTION, {
     useNewUrlParser: true,
@@ -12,5 +14,5 @@ mongoose
     });
     mongoose.connection.on("error", () => console.log("error"));
   })
-  .catch((err) => console.log("Connection Error"));
+  .catch((err) => console.log("Connection Error Mongo DB"));
 module.exports = mongoose;

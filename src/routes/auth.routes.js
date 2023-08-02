@@ -1,13 +1,14 @@
-const {Router} =  require('express')
-const {authRecived} = require('../controller/auth.controller')
-const router = Router()
+const { Router } = require('express')
+const { authPlatformGoogle } = require('../controller/')
+const auth = Router()
 
 require('dotenv').config()
 
-router.post('/auth-recived',authRecived)
+
+auth.post('/auth-recived', authPlatformGoogle)
 
 
-module.exports = router
+module.exports = auth
 
 
 

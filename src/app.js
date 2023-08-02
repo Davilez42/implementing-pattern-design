@@ -1,21 +1,27 @@
 const express = require("express");
 const authRoutes = require('./routes/auth.routes')
+const labRoutes = require('./routes/lab.routes')
+const contentRoutes = require('./routes/content.routes')
+
+const cors = require('cors')
 
 
-const cors =  require('cors')
-const {join} = require('path')
 const app = express();
 
 app.use(cors({
-    origin:["*"]
+    origin: ["*"]
 }))
-app.use(express.urlencoded())
+
+
 app.use(express.json())
-app.use(express.static(join(__dirname,'public')))
-app.get('/',(req,res)=>{
-    res.json({message:"Welcome to server, this server is for practice mongoose !!"})
+
+app.get('/', (req, res) => {
+    res.json({ message: "Welcome to server, this server is for practice  !!" })
 })
-app.use('/auth/',authRoutes)
+
+app.use('/auth/', authRoutes)
+//app.use('/test/lab/', labRoutes)
+app.use('/content/', contentRoutes)
 
 
 

@@ -17,7 +17,7 @@ const movieScheme = new Schema(
   },
   {
     timestamps: true,
-    strictPopulate:false
+    strictPopulate: false
   }
 );
 

@@ -9,7 +9,7 @@ const commentScheme = new Schema(
     text: { type: String, require: true },
     date: { type: Date, require: true },
   },
-  { timestamps: true}
+  { timestamps: true }
 );
 const commentsModel = model("Comments", commentScheme);
 module.exports = commentsModel;
