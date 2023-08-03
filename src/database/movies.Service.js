@@ -1,10 +1,10 @@
 
-const getMovies = async (movieModel) => {
+const getMovies = ({ movieModel }) => async () => {
   const movies = await movieModel.find().limit(30);
   return movies;
 };
 
-const getMovieWithComments = (movieModel, commentModel) => async (id_movie) => {
+const getMovieByIdWithComments = ({ movieModel, commentModel }) => async (id_movie) => {
   const movie = await movieModel.findById(id_movie).select("title");
   const comments = await commentModel
     .find({ movie_id: movie._id })
@@ -15,7 +15,7 @@ const getMovieWithComments = (movieModel, commentModel) => async (id_movie) => {
   return data;
 };
 
-const getMoviesWithComments = async (movieModel) => {
+const getMoviesWithComments = ({ movieModel }) => async () => {
   ///forma1
   const movies = await movieModel
     .aggregate([
@@ -35,6 +35,6 @@ const getMoviesWithComments = async (movieModel) => {
 
 module.exports = {
   getMovies,
-  getMovieWithComments,
+  getMovieByIdWithComments,
   getMoviesWithComments,
 };
