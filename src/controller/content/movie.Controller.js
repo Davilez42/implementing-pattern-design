@@ -1,13 +1,10 @@
 
-//Modelos que los controladores de movie va a utilizar
-const movieModel = require("../../database/models/movieScheme");
-const commentModel = require("../../database/models/commentScheme");
 
 //Aplicando currying para implementar la inyeccion de dependencias
 
-const getMovies = (moviesService) => async (req, res) => {
+const getMovies = ({ getMovies_ }) => async (req, res) => {
     try {
-        const movies_db = await moviesService.getMovies(movieModel)
+        const movies_db = await getMovies_()
         res.status(200).json(movies_db)
     } catch (e) {
         console.log(e);
@@ -15,11 +12,11 @@ const getMovies = (moviesService) => async (req, res) => {
     }
 }
 
-const getCommentsMovie = (moviesService) => async (req, res) => {
+const getCommentsMovie = ({ getMovieByIdWithComments }) => async (req, res) => {
     const { id_movie } = req.params
     console.log(id_movie);
     try {
-        const movieComments_db = await moviesService.getMovieWithComments(movieModel, commentModel)(id_movie)
+        const movieComments_db = await getMovieByIdWithComments(id_movie)
 
         res.status(200).json(movieComments_db)
     } catch (e) {
@@ -27,10 +24,9 @@ const getCommentsMovie = (moviesService) => async (req, res) => {
     }
 }
 
-const getMoviesComments = (moviesService) => async (req, res) => {
-
+const getMoviesComments = ({ getMoviesWithComments }) => async (req, res) => {
     try {
-        const movieComments_db = await moviesService.getMoviesWithComments(movieModel)
+        const movieComments_db = await getMoviesWithComments()
 
         res.status(200).json(movieComments_db)
     } catch (e) {

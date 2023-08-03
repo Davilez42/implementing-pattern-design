@@ -1,16 +1,15 @@
-const userModel = require("../../database/models/userScheme");
 
 
 require("dotenv").config();
 
-const authPlatformGoogle = (userService, json) => async (req, res) => {
+const authPlatformGoogle = ({ getUserByEmail, creatNewUser }, json) => async (req, res) => {
   try {
     const { credential, g_csrf_token } = req.body;
     const data = json.decode(credential, process.env.SECRET_TOKEN_GOOGLE);
     console.log(data);
-    let user_db = await userService.getUserByEmail(userModel)(data.email);
+    let user_db = await getUserByEmail(data.email);
     if (!user_db) {
-      const user = await userService.creatNewUser(userModel)(data)
+      const user = await creatNewUser(data)
       user_db = user;
     }
     const token = json.sign(

@@ -1,5 +1,5 @@
 
-const getSerie = (fs) => (req, res) => {
+const getSerie = (fs, { }) => (req, res) => {
     try {
         const { name, temp, epis } = req.params
         const stream = fs.createReadStream(`./src/database/series/${name}/${temp}/${epis}.mp4`)

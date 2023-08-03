@@ -1,20 +1,21 @@
 
 
-const getUsersWithComments = async () => {
+const getUsersWithComments = ({ userModel }) => async () => {
   const users = await userModel.find();
   return users;
 };
-const getUserByEmail = async (email) => {
+const getUserByEmail = ({ userModel }) => async (email) => {
   const user = await userModel.findOne({ email });
   return user;
 };
-const creatNewUser = async (data) => {
+const creatNewUser = ({ userModel }) => async (data) => {
+
   const new_user = new userModel({
     name: data.name,
     email: data.email,
     url_avatar: data.picture
   })
-  console.log(new_user);
+
   await new_user.save()
   return new_user
 }
